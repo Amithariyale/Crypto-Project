@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Crypto</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Crypto Tracker</title>
 </head>
 
 <body>
@@ -15,41 +16,25 @@
             <input type="text" id="search" name="search" placeholder="Search By Name or Symbol">
             <select name="cap" id="cap">
                 <option value="" disabled selected>Sort By Mkt Cap</option>
-                <option value="all">All</option>
+                <option value="">All</option>
                 <option value="LowToHigh">Low to High</option>
                 <option value="HighToLow">High to Low</option>
             </select>
             <select name="percentage" id="percentage">
                 <option value="" disabled selected>Sort By Percentage</option>
-                <option value="all">All</option>
+                <option value="">All</option>
                 <option value="LowToHigh">Low to High</option>
                 <option value="HighToLow">High to Low</option>
             </select>
         </form>
     </nav>
 
-
+    <!-- Main container -->
     <main id="main_container">
         <table id="data_table">
-            <!-- <tr>
-                <td>
-                    <img src="${data.image}" alt="${data.name}">${data.name}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="perRate"></td>
-                <td></td>
-            </tr> -->
         </table>
-
-
     </main>
 
-    <div id="navigate">
-        <button id="prevBtn">prev</button>
-        <button id="nextBtn">next</button>
-    </div>
     <script src="script.js"></script>
 </body>
 

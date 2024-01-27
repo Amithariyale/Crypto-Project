@@ -3,19 +3,20 @@ const searchBaar = document.getElementById("search");
 const sortByCap = document.getElementById("cap");
 const sortByPercent = document.getElementById("percentage");
 
-let data = [];
-let currPage = 1;
+let data = [];//Initializing data array.
+
+// fetching data when document loaded.
 document.addEventListener("DOMContentLoaded", () => {
   fetchData()
     .then(() => showCurrentData(data))
     .catch((e) => console.log(e));
 });
-// https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false
 
+// async function for fetching data.
 async function fetchData() {
   try {
     const jsonData = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=${currPage}&sparkline=false`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=false`
     );
     data = await jsonData.json();
   } catch (error) {
@@ -23,9 +24,10 @@ async function fetchData() {
   }
 }
 
+
+// function to show data on UI. 
 function showCurrentData(newData) {
-  console.log(newData);
-  table.innerHTML = "";
+  table.innerHTML= "";
   newData.map((item) => {
     table.innerHTML += `
     <tr>
@@ -44,8 +46,8 @@ function showCurrentData(newData) {
   });
 }
 
-// showCurrentData(myData);
 
+// Function to filter data according to tha search query.
 searchBaar.addEventListener("input", (e) => {
   let name = e.target.value.trim().toLowerCase();
   let symbol = e.target.value.trim().toLowerCase();
@@ -54,6 +56,7 @@ searchBaar.addEventListener("input", (e) => {
   debouncing(300, name, symbol);
 });
 
+// Created deboucing function to reduce api call when spamming.
 let timeout;
 function debouncing(delay, name, symbol) {
   clearTimeout(timeout);
@@ -63,6 +66,7 @@ function debouncing(delay, name, symbol) {
   }, delay);
 }
 
+// showSearchData function for fehting t
 function showSearchData(name, symbol) {
   fetchData()
     .then(() => {
@@ -77,6 +81,7 @@ function showSearchData(name, symbol) {
     .catch((error) => console.log(error));
 }
 
+// sortByCap function to sort data by Mkt cap.
 sortByCap.addEventListener("change", (e) => {
   sortByPercent.value = "";
   if (e.target.value === "LowToHigh") {
@@ -87,8 +92,9 @@ sortByCap.addEventListener("change", (e) => {
   showCurrentData(data);
 });
 
+// sortByPercent function to sort data by percentage.
 sortByPercent.addEventListener("change", (e) => {
-  sortByCap = "";
+  sortByCap.value = "";
   if (e.target.value === "LowToHigh") {
     data.sort(
       (a, b) =>
